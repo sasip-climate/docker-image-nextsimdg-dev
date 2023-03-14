@@ -14,10 +14,21 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     update-ca-certificates && \
    apt-get clean && \
    rm -rf /var/lib/apt/lists/*
-   
-ADD environment.yml environment.yml
 
-RUN mamba env update --prefix /srv/conda/envs/notebook --file environment.yml
+RUN wget --quiet --no-check-certificate https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh && \
+    /bin/bash /tmp/miniconda.sh -b -p /opt/conda && \
+    rm /tmp/miniconda.sh && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate base" >> ~/.bashrc
+
+ENV PATH="/opt/conda/bin/:$PATH"
+
+ADD environment.yml environment.yml
+RUN conda env update --file environment.yml --name base && \
+    /opt/conda/bin/conda clean -a && \
+    rm -rf $HOME/.cache/yarn && \
+    rm -rf /opt/conda/pkgs/*
 
 RUN sudo apt-get update \
     sudo apt-get install netcdf-bin libnetcdf-c++4-dev libboost-all-dev libeigen3-dev cmake
