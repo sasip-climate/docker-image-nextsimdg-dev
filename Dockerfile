@@ -15,17 +15,35 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
    apt-get clean && \
    rm -rf /var/lib/apt/lists/*
 
-RUN wget --quiet --no-check-certificate https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh && \
-    /bin/bash /tmp/miniconda.sh -b -p /opt/conda && \
-    rm /tmp/miniconda.sh && \
-    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc
-
-ENV PATH="/opt/conda/bin/:$PATH"
+ENV CONDA_ENV=notebook \
+    # Tell apt-get to not block installs by asking for interactive human input
+    DEBIAN_FRONTEND=noninteractive \
+    # Set username, uid and gid (same as uid) of non-root user the container will be run as
+    NB_USER=jovyan \
+    NB_UID=1000 \
+    # Use /bin/bash as shell, not the default /bin/sh (arrow keys, etc don't work then)
+    SHELL=/bin/bash \
+    # Setup locale to be UTF-8, avoiding gnarly hard to debug encoding errors
+    LANG=C.UTF-8  \
+    LC_ALL=C.UTF-8 \
+    # Install conda in the same place repo2docker does
+    CONDA_DIR=/srv/conda
+    
+RUN echo "Installing Mambaforge..." \
+    && URL="https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh" \
+    && wget --quiet ${URL} -O installer.sh \
+    && /bin/bash installer.sh -u -b -p ${CONDA_DIR} \
+    && rm installer.sh \
+    && mamba install conda-lock -y \
+    && mamba clean -afy \
+    # After installing the packages, we cleanup some unnecessary files
+    # to try reduce image size - see https://jcristharif.com/conda-docker-tips.html
+    # Although we explicitly do *not* delete .pyc files, as that seems to slow down startup
+    # quite a bit unfortunately - see https://github.com/2i2c-org/infrastructure/issues/2047
+    && find ${CONDA_DIR} -follow -type f -name '*.a' -delete
 
 ADD environment.yml environment.yml
-RUN conda env update --file environment.yml --name base 
+RUN mamba env update --prefix /srv/conda/envs/notebook --file environment.yml
 
 RUN sudo apt-get update \
     sudo apt-get install netcdf-bin libnetcdf-c++4-dev libboost-all-dev libeigen3-dev cmake
