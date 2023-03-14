@@ -25,10 +25,7 @@ RUN wget --quiet --no-check-certificate https://repo.anaconda.com/miniconda/Mini
 ENV PATH="/opt/conda/bin/:$PATH"
 
 ADD environment.yml environment.yml
-RUN conda env update --file environment.yml --name base && \
-    /opt/conda/bin/conda clean -a && \
-    rm -rf $HOME/.cache/yarn && \
-    rm -rf /opt/conda/pkgs/*
+RUN conda env update --file environment.yml --name base 
 
 RUN sudo apt-get update \
     sudo apt-get install netcdf-bin libnetcdf-c++4-dev libboost-all-dev libeigen3-dev cmake
