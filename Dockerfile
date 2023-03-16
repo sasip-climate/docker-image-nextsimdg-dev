@@ -14,7 +14,7 @@ USER docker
 # this is where I was running into problems with the other approaches
 RUN sudo apt-get update 
 
-RUN sudo apt-get install git netcdf-bin libnetcdf-c++4-dev libboost-all-dev libeigen3-dev cmake --assume-yes
+RUN sudo apt-get install git build-essential netcdf-bin libnetcdf-c++4-dev libboost-all-dev libeigen3-dev cmake --assume-yes
 
 WORKDIR /tmp
 RUN git clone -b v2.x https://github.com/catchorg/Catch2.git
