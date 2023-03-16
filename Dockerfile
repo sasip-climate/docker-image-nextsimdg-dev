@@ -25,7 +25,11 @@ RUN sudo cmake --build build/ --target install
 WORKDIR /tmp
 RUN git clone -b issue194_topaz_era https://github.com/nextsimdg/nextsimdg.git
 WORKDIR nextsimdg
+RUN mkdir -p build
+WORKDIR build
+
 RUN cmake . 
 RUN make
-    
+
+ENV PATH="/tmp/nextsimdg/:$PATH"
 CMD [ "/bin/bash" ]    
