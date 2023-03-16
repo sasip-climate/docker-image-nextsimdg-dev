@@ -19,13 +19,13 @@ RUN sudo apt-get install git netcdf-bin libnetcdf-c++4-dev libboost-all-dev libe
 WORKDIR /tmp
 RUN git clone -b v2.x https://github.com/catchorg/Catch2.git
 WORKDIR Catch2
-RUN cmake -Bbuild -H. -DBUILD_TESTING=OFF \
-    sudo cmake --build build/ --target install
+RUN cmake -Bbuild -H. -DBUILD_TESTING=OFF 
+RUN sudo cmake --build build/ --target install
 
 WORKDIR /tmp
 RUN git clone -b issue194_topaz_era https://github.com/nextsimdg/nextsimdg.git
 WORKDIR nextsimdg
-RUN cmake . \
-    make
+RUN cmake . 
+RUN make
     
 CMD [ "/bin/bash" ]    
