@@ -28,7 +28,7 @@ WORKDIR nextsimdg
 RUN mkdir -p build
 WORKDIR build
 
-RUN cmake . 
+RUN cmake .. 
 RUN make
 
 ENV PATH="/tmp/nextsimdg/:$PATH"
