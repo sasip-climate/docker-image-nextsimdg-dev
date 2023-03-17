@@ -46,7 +46,7 @@ RUN wget --quiet --no-check-certificate https://repo.anaconda.com/miniconda/Mini
 ENV PATH="/tmp/nextsimdg/build:$PATH"
 
 # Add conda to path
-ENV PATH="opt/conda/bin:$PATH"
+ENV PATH="/opt/conda/bin:$PATH"
 
 # Install conda environment
 COPY environment.yml /tmp/environment.yml
