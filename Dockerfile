@@ -14,7 +14,7 @@ USER docker
 
 # Install all the necessary librairies for nextsimdg along with some tools 
 RUN sudo apt-get update 
-RUN sudo apt-get install vim git build-essential bash-completion netcdf-bin libnetcdf-c++4-dev libboost-all-dev libeigen3-dev cmake --assume-yes
+RUN sudo apt-get install vim git build-essential bash-completion wget netcdf-bin libnetcdf-c++4-dev libboost-all-dev libeigen3-dev cmake --assume-yes
 
 # Get and install Catch2 from source
 WORKDIR /tmp
