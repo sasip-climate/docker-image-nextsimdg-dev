@@ -14,7 +14,7 @@ USER docker
 
 # Install all the necessary librairies for nextsimdg along with some tools 
 RUN sudo apt-get update 
-RUN sudo apt-get install vim git build-essential bash-completion netcdf-bin libnetcdf-c++4-dev libboost-all-dev libeigen3-dev cmake --assume-yes
+RUN sudo apt-get install vim git build-essential bash-completion wget netcdf-bin libnetcdf-c++4-dev libboost-all-dev libeigen3-dev cmake --assume-yes
 
 # Get and install Catch2 from source
 WORKDIR /tmp
@@ -39,9 +39,9 @@ ENV PATH="/tmp/nextsimdg/build/bin:$PATH"
 
 # Install conda
 RUN wget --quiet --no-check-certificate https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh && \
-    /bin/bash /tmp/miniconda.sh -b -p /opt/conda && \
+    sudo /bin/bash /tmp/miniconda.sh -b -p /opt/conda && \
     rm /tmp/miniconda.sh && \
-    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    sudo ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
