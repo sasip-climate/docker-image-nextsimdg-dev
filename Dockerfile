@@ -2,15 +2,7 @@ FROM jupyter/base-notebook:lab-3.6.3
 LABEL maintainer="Aurelie Albert <aurelie.albert@univ-grenoble-alpes.fr>"
 LABEL version="0.1"
 
-#Add a sudo user so that packages can be installed
-RUN apt-get update && \
-      apt-get -y install sudo
-
-RUN adduser --disabled-password --gecos '' docker
-RUN adduser docker sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-USER docker
+USER root
 
 # Install all the necessary librairies for nextsimdg along with some tools 
 RUN sudo apt-get update 
