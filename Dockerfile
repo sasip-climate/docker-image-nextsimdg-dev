@@ -29,4 +29,6 @@ RUN make
 # Add nextsimdg exe to path
 ENV PATH="/tmp/nextsimdg/build:$PATH"
 
+WORKDIR /tmp/nextsimdg/run
+
 CMD [ "/bin/bash" ]    
