@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM jupyter/base-notebook:lab-3.6.3
 LABEL maintainer="Aurelie Albert <aurelie.albert@univ-grenoble-alpes.fr>"
 LABEL version="0.1"
 
@@ -34,27 +34,7 @@ WORKDIR build
 RUN cmake .. 
 RUN make
 
-# Install conda
-RUN wget --quiet --no-check-certificate https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh && \
-    sudo /bin/bash /tmp/miniconda.sh -b -p /opt/conda && \
-    rm /tmp/miniconda.sh && \
-    sudo ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bash_profile && \
-    echo "conda activate base" >> ~/.bash_profile
-
 # Add nextsimdg exe to path
 ENV PATH="/tmp/nextsimdg/build:$PATH"
-
-# Add conda to path
-ENV PATH="/opt/conda/bin:$PATH"
-
-# Install conda environment
-COPY environment.yml /tmp/environment.yml
-RUN conda env update --file /tmp/environment.yml --name base && \
-    /opt/conda/bin/conda clean -a && \
-    rm -rf $HOME/.cache/yarn && \
-    rm -rf /opt/conda/pkgs/*
-
-
 
 CMD [ "/bin/bash" ]    
