@@ -7,7 +7,10 @@ The modifications of the Dockerfile are done in a dedicated branch, then a pull 
 
 Then you have to check on https://quay.io/repository/auraoupa/nextsimdg-demo-meeting?tab=tags, the newest tag that has been created, you click and the download icon (fetch the tag), select docker pull by tag and the command ```docker pull quay.io/auraoupa/nextsimdg-demo-meeting:f1b93ce58bab``` for instance is generated.
 
-With your local instance of docker you can download the docker image with the command and then you run it with ```docker exec -it d63b7e4998665547be7127449db7963e40c65efdcaa2bb08c005d9b2acc7f9e5 /bin/sh```
+With your local instance of docker you can download the docker image with the command and then you run it with ```docker exec -it d63b7e4998665547be7127449db7963e40c65efdcaa2bb08c005d9b2acc7f9e5 /bin/sh``` (get the command from docker desktop)
 
+When a notebook interface is deployed do :
+  - docker run -p 10000:8888 quay.io/auraoupa/nextsimdg-demo-meeting:437f95b1f18c
+  - open the jupyterlab. with http://127.0.0.1:10000/lab?token=282834470c5bb5b1175caef0d3457ac9c103df4a2b356b4b
 
 
