@@ -9,7 +9,7 @@ Then you have to check on https://quay.io/repository/auraoupa/nextsimdg-demo-mee
 
 You can test the docker with binder each time you do a pull request : https://mybinder.org/v2/gh/auraoupa/docker-image-nextsimdg-demo/notebook2
 
-To add the notebook layer, I followed [jupyter's documentation](https://jupyter-docker-stacks.readthedocs.io/en/latest/)
+To add the notebook layer, I followed [jupyter's documentation](https://jupyter-docker-stacks.readthedocs.io/en/latest/) and read [some images dockerfile](https://github.com/jupyter/docker-stacks)
 
 With your local instance of docker you can download the docker image with the command and then you run it with ```docker exec -it d63b7e4998665547be7127449db7963e40c65efdcaa2bb08c005d9b2acc7f9e5 /bin/sh``` (get the command from docker desktop)
 
