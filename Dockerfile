@@ -80,8 +80,15 @@ RUN sed -re "s/c.ServerApp/c.NotebookApp/g" \
 # https://github.com/jupyter/docker-stacks/issues/915#issuecomment-1068528799
 HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
     CMD /etc/jupyter/docker_healthcheck.py || exit 1
+    
+# Switch off jupyter newsletter prompt
+RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
 
 # Switch back to jovyan to avoid accidental container runs as root
-USER ${NB_UID}
+# Add access to summer space
+USER root
+RUN groupadd -g 10128 pr-sasip \
+ && usermod -g 10128 $NB_USER
+USER $NB_USER
 
 WORKDIR "${HOME}"
