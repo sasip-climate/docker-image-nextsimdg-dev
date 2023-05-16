@@ -88,6 +88,6 @@ HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
 RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
 
 # Switch back to jovyan to avoid accidental container runs as root
-USER $NB_USER
+#USER $NB_USER
 
 WORKDIR "${HOME}"
