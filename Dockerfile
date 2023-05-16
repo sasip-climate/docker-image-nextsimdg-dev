@@ -4,7 +4,12 @@ LABEL version="0.1"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# Add access to summer space
 USER root
+
+RUN groupadd -g 10128 pr-sasip \
+ && usermod -g 10128 $NB_USER
+
 
 # Install all the necessary librairies for nextsimdg along with some tools 
 RUN sudo apt-get update 
@@ -85,10 +90,6 @@ HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
 RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
 
 # Switch back to jovyan to avoid accidental container runs as root
-# Add access to summer space
-USER root
-RUN groupadd -g 10128 pr-sasip \
- && usermod -g 10128 $NB_USER
 USER $NB_USER
 
 WORKDIR "${HOME}"
