@@ -8,7 +8,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 
 RUN groupadd -g 10128 pr-sasip \
- && usermod -g 10128 $NB_USER
+ && usermod -g 10128 $NB_UID
 
 
 # Install all the necessary librairies for nextsimdg along with some tools 
@@ -88,6 +88,6 @@ HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
 RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
 
 # Switch back to jovyan to avoid accidental container runs as root
-USER $NB_USER
+#USER $NB_USER
 
 WORKDIR "${HOME}"
