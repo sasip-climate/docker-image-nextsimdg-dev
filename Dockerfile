@@ -8,7 +8,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 
 RUN groupadd -g 10128 pr-sasip \
- && usermod -g 10128 $NB_USER
+ && usermod -g 10128 $NB_UID
 
 
 # Install all the necessary librairies for nextsimdg along with some tools 
