@@ -7,10 +7,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Add access to summer space
 USER root
 
-RUN groupadd -g 10128 pr-sasip \
- && usermod -g 10128 $NB_USER
-
-
 # Install all the necessary librairies for nextsimdg along with some tools 
 RUN sudo apt-get update 
 RUN sudo apt-get install vim git build-essential bash-completion wget netcdf-bin libnetcdf-c++4-dev libboost-all-dev libeigen3-dev cmake --assume-yes
