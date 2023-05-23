@@ -48,6 +48,8 @@ RUN apt-get update --yes && \
 RUN mamba install --yes \
     'notebook' \
     'jupyterhub' \
+    'xarray'  \
+    'cartopy'  \
     'jupyterlab' && \
     jupyter notebook --generate-config && \
     mamba clean --all -f -y && \
