@@ -45,7 +45,6 @@ RUN apt-get update --yes && \
     run-one && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
     
-USER ${NB_USER}
 RUN mamba install --yes \
     'notebook' \
     'jupyterhub' \
@@ -53,8 +52,7 @@ RUN mamba install --yes \
     jupyter notebook --generate-config && \
     mamba clean --all -f -y && \
     npm cache clean --force && \
-    jupyter lab clean && \
-    rm -rf "/home/${NB_USER}/.cache/yarn"
+    jupyter lab clean 
 
 ENV JUPYTER_PORT=8888
 EXPOSE $JUPYTER_PORT
@@ -82,8 +80,5 @@ HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
     
 # Switch off jupyter newsletter prompt
 RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
-
-# Switch back to jovyan to avoid accidental container runs as root
-#USER $NB_USER
 
 WORKDIR "${HOME}"
