@@ -20,7 +20,7 @@ RUN sudo cmake --build build/ --target install
 
 # Get nextsimdg source from the dedicated branch for test case
 WORKDIR /tmp
-RUN git clone -b issue194_topaz_era https://github.com/nextsimdg/nextsimdg.git
+RUN git clone -b june23_demo https://github.com/nextsimdg/nextsimdg.git
 WORKDIR nextsimdg
 
 # Compile nextsimdg
