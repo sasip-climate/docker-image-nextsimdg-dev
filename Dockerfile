@@ -1,4 +1,4 @@
-FROM jupyter/base-notebook:2023-05-15
+FROM jupyter/base-notebook:latest
 
 # Maximum jobs for make
 ARG MAX_JOBS=4
